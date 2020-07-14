@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
   name: {
     type: String,
     required: true
@@ -24,6 +28,29 @@ const StudentSchema = new mongoose.Schema({
   resourcestudent: {
     type: Boolean,
     default: false
+  },
+  bio: {
+    type: String
+  },
+  goals: {
+    type: String
+  },
+  social: {
+    youtube: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+    snapchat: {
+      type: String
+    },
+    tiktok: {
+      type: String
+    },
+    instagram: {
+      type: String
+    }
   },
   date: {
     type: Date,

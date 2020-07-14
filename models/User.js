@@ -1,10 +1,48 @@
 const mongoose = require('mongoose');
 
-const TeacherProfileSchema = new mongoose.Schema({
-  teacher: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'teacher'
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    requried: true
+  },
+  avatar: {
+    type: String
+  },
+  role: {
+    type: String,
+    default: 'TEACHER'
+  },
+  classes: [
+    {
+      name: {
+        type: String,
+        required: true
+      },
+      period: {
+        type: Number
+      },
+      description: {
+        type: String
+      },
+      students: [
+        {
+          student: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'student'
+          }
+        }
+      ]
+    }
+  ],
   room: {
     type: String
   },
@@ -72,7 +110,4 @@ const TeacherProfileSchema = new mongoose.Schema({
   }
 });
 
-module.exports = TeacherProfile = mongoose.model(
-  'teacherprofile',
-  TeacherProfileSchema
-);
+module.exports = User = mongoose.model('user', UserSchema);
