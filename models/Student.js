@@ -30,28 +30,14 @@ const StudentSchema = new mongoose.Schema({
   resourcestudent: {
     type: Boolean
   },
+  learningstrats: {
+    type: String
+  },
   bio: {
     type: String
   },
   goals: {
     type: String
-  },
-  social: {
-    youtube: {
-      type: String
-    },
-    twitter: {
-      type: String
-    },
-    snapchat: {
-      type: String
-    },
-    tiktok: {
-      type: String
-    },
-    instagram: {
-      type: String
-    }
   },
   date: {
     type: Date,
