@@ -230,10 +230,6 @@ router.put(
         const { name, period, description } = req.body;
 
         let students = s_array.map(function (st) {
-          console.log(
-            'valid mongoose object id',
-            mongoose.Types.ObjectId.isValid(st._id)
-          );
           return mongoose.Types.ObjectId(st._id);
         });
 
@@ -298,5 +294,41 @@ router.delete('/classes/:class_id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+//@route    PUT api/teacherprofile/todos
+//@desc     Posts a todo item
+//@access   Private
+
+router.put(
+  '/todos',
+  [auth, [check('task', 'Task is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { task, deadline, completed } = req.body;
+
+    const newTodo = {
+      task,
+      deadline,
+      completed
+    };
+
+    try {
+      const profile = await TeacherProfile.findOne({ user: req.user.id });
+
+      profile.todos.unshift(newTodo);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 module.exports = router;
