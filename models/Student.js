@@ -10,24 +10,25 @@ const StudentSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true,
-    unique: true
+    type: String
   },
   password: {
-    type: String,
-    requried: true
+    type: String
   },
   avatar: {
     type: String
   },
+  gender: {
+    type: String
+  },
+  grade: {
+    type: Number
+  },
   englishlearner: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   resourcestudent: {
-    type: Boolean,
-    default: false
+    type: Boolean
   },
   bio: {
     type: String

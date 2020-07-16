@@ -16,14 +16,6 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
-  likes: [
-    {
-      teacher: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
-      }
-    }
-  ],
   comments: [
     {
       teacher: {
