@@ -12,11 +12,12 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('API Running'));
 
 // Define Routes
-app.use('/api/teachers', require('./routes/api/teachers'));
+app.use('/api/user', require('./routes/api/user'));
+app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/students', require('./routes/api/students'));
 app.use('/api/teacherprofile', require('./routes/api/teacherprofile'));
-app.use('/api/studentprofile', require('./routes/api/studentprofile'));
-app.use('/api/posts', require('./routes/api/posts'));
+// app.use('/api/studentprofile', require('./routes/api/studentprofile'));
+// app.use('/api/posts', require('./routes/api/posts'));
 
 const PORT = process.env.PORT || 5000;
 
