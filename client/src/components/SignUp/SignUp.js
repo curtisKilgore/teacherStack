@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { signup } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function SignUp({ setAlert }) {
+function SignUp({ setAlert, signup }) {
   const [signUpForm, setSignUpForm] = useState({
     name: '',
     email: '',
@@ -23,7 +24,7 @@ function SignUp({ setAlert }) {
       console.log('passwords do not match');
       setAlert('Passwords do not match', 'danger');
     } else {
-      console.log(signUpForm);
+      signup({ name, email, password });
     }
   };
 
@@ -41,7 +42,6 @@ function SignUp({ setAlert }) {
             name='name'
             value={name}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -51,7 +51,6 @@ function SignUp({ setAlert }) {
             name='email'
             value={email}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -61,7 +60,6 @@ function SignUp({ setAlert }) {
             name='password'
             value={password}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -71,7 +69,6 @@ function SignUp({ setAlert }) {
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
-            required
           />
         </div>
         <input type='submit' className='btn btn-coral' />
@@ -84,7 +81,8 @@ function SignUp({ setAlert }) {
 }
 
 SignUp.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(SignUp);
+export default connect(null, { setAlert, signup })(SignUp);
