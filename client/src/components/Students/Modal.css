@@ -1,0 +1,11 @@
+.modalClass {
+  position: fixed;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  outline: 0;
+  max-height: 90vh;
+  max-width: 90vw;
+}

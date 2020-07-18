@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server --ignore client",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,9 @@
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.21",
+    "react-awesome-modal": "^2.0.5",
+    "react-bootstrap": "^1.2.2",
+    "react-router-dom": "^5.2.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
