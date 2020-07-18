@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 
 function Posts() {
   return (
-    <div className='container'>
+    <Fragment>
       <h1 className='large text-primary'>Posts</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Ask Your Fellow Teachers A Question
@@ -13,7 +13,7 @@ function Posts() {
       <div className='posts'>
         <PostItem />
       </div>
-    </div>
+    </Fragment>
   );
 }
 

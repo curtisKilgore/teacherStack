@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import ProfileTop from './ProfileTop';
 
 function Profile() {
@@ -55,7 +55,7 @@ function Profile() {
   ]);
 
   return (
-    <div className='container'>
+    <Fragment>
       <div className='profile-grid my-1'>
         <ProfileTop teacher={teacher} />
         <div className='profile-schedule bg-white p-2'>
@@ -87,7 +87,7 @@ function Profile() {
           </ul>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

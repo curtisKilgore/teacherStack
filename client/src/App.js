@@ -12,6 +12,7 @@ import GenericForm from './components/Form/Form';
 import Posts from './components/Posts/Posts';
 import Post from './components/Post/Post';
 import NotFound from './components/pages/NotFound';
+import Alert from './components/Layout/Alert';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -24,21 +25,25 @@ function App() {
       <Router>
         <Fragment>
           <NavBar />
-          <Switch>
-            <Route exact path={'/'} component={Main}></Route>
-            <Route exact path={'/login'} component={Login}></Route>
-            <Route exact path={'/signup'} component={SignUp}></Route>
-            <Route
-              exact
-              path={'/students'}
-              component={StudentContainer}
-            ></Route>
-            <Route exact path={'/posts'} component={Posts}></Route>
-            <Route exact path={'/post'} component={Post}></Route>
-            <Route exact path={'/profile'} component={Profile}></Route>
-            <Route exact path={'/form'} component={GenericForm}></Route>
-            <Route component={NotFound}></Route>
-          </Switch>
+          <Route exact path={'/'} component={Main}></Route>
+          <section className='container'>
+            <Alert />
+            <Switch>
+              <Route exact path={'/login'} component={Login}></Route>
+              <Route exact path={'/signup'} component={SignUp}></Route>
+              <Route
+                exact
+                path={'/students'}
+                component={StudentContainer}
+              ></Route>
+              <Route exact path={'/posts'} component={Posts}></Route>
+              <Route exact path={'/post'} component={Post}></Route>
+              <Route exact path={'/profile'} component={Profile}></Route>
+              <Route exact path={'/form'} component={GenericForm}></Route>
+              <Route component={NotFound}></Route>
+            </Switch>
+          </section>
+
           <Footer />
         </Fragment>
       </Router>

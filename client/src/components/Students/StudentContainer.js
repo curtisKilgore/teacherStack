@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Student from './Student';
 
 function ListingsContainer() {
   return (
-    <div className='container'>
+    <Fragment>
       <table className='table'>
         <thead>
           <th>Student Name</th>
@@ -15,7 +15,7 @@ function ListingsContainer() {
         </thead>
         <Student />
       </table>
-    </div>
+    </Fragment>
   );
 }
 
