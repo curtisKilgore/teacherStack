@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PostItem from '../Posts/PostItem';
 import CommentForm from './CommentForm';
@@ -6,7 +6,7 @@ import CommentItem from './CommentItem';
 
 function Post() {
   return (
-    <div className='container'>
+    <Fragment>
       <Link to='/posts' className='btn btn-sea'>
         {' '}
         Back to Posts
@@ -16,7 +16,7 @@ function Post() {
       <div className='comments'>
         <CommentItem />
       </div>
-    </div>
+    </Fragment>
   );
 }
 

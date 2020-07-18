@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import './form.css';
 
 function GenericForm() {
@@ -30,7 +30,7 @@ function GenericForm() {
   }
 
   return (
-    <div className='container'>
+    <Fragment>
       {' '}
       <div className='bg-sea p'>
         <h1>Register With Us</h1>
@@ -84,7 +84,7 @@ function GenericForm() {
           </button>
         </form>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

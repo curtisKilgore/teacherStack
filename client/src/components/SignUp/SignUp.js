@@ -2,8 +2,9 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function SignUp() {
+function SignUp({ setAlert }) {
   const [signUpForm, setSignUpForm] = useState({
     name: '',
     email: '',
@@ -27,7 +28,7 @@ function SignUp() {
   };
 
   return (
-    <div className='container'>
+    <Fragment>
       <h1 className='large text-sea'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
@@ -78,8 +79,12 @@ function SignUp() {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </div>
+    </Fragment>
   );
 }
 
-export default SignUp;
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired
+};
+
+export default connect(null, { setAlert })(SignUp);
