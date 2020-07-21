@@ -1,71 +1,46 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import ProfileTop from './ProfileTop';
+import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profile';
+import Spinner from '../Layout/Spinner';
+import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 
-function Profile() {
-  // list name, email, avatar, class schedule (hyperlink to go to that class), to do list?
-  const [teacher, setTeacher] = useState({
-    name: 'Derek Glassick',
-    email: 'dglassick@valverde.edu',
-    school: 'Orange Vista High School',
-    team: '10th Grade',
-    avatar:
-      'https://media-exp1.licdn.com/dms/image/C4E03AQGnOYxJKzBwUw/profile-displayphoto-shrink_200_200/0?e=1598486400&v=beta&t=YsaPebInIxjipk5dWeuBKn3xMzTsa9oNdqSY1JFEzPQ',
-    classSchedule: [
-      {
-        period: 1,
-        title: 'English 10'
-      },
-      {
-        period: 2,
-        title: 'AVID 10'
-      },
-      {
-        period: 4,
-        title: 'English 10'
-      },
-      {
-        period: 5,
-        title: 'English 10'
-      },
-      {
-        period: 6,
-        title: 'English 10'
-      }
-    ]
-  });
-  const { name, email, avatar, classSchedule } = teacher;
+const Profile = ({
+  getCurrentProfile,
+  auth: { user },
+  profile: { profile, loading }
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
 
-  const [todo, setTodo] = useState([
-    {
-      item: 'Grade 1st Period Essay',
-      deadline: 'Wednedsay'
-    },
-    {
-      item: 'Call Home for Bobby Sims',
-      deadline: 'Thursday'
-    },
-    {
-      item: 'Meet with RSP Teacher',
-      deadline: 'Friday'
-    },
-    {
-      item: 'Plan for AVID 10',
-      deadline: 'Monday'
-    }
-  ]);
-
-  return (
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
     <Fragment>
       <div className='profile-grid my-1'>
-        <ProfileTop teacher={teacher} />
+        <ProfileTop profile={profile} user={user} />
+        <div className='profile-about bg-white p-2'>
+          <h2 className='text-primary'>Skills</h2>
+          <hr />
+          <div className='skills'>
+            {profile.skills.map(skill => (
+              <div className='p-1'>
+                <i className='fas fa-check'></i> {skill}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className='profile-schedule bg-white p-2'>
           <h2 className='text-primary'>Class Schedule</h2>
           <hr />
           <ul>
-            {classSchedule.map(course => {
+            {profile.classes.map(course => {
               return (
                 <li>
-                  {course.period}. {course.title}{' '}
+                  {course.period}. {course.name}{' '}
                   <button className='btn-coral'>View Class</button>
                 </li>
               );
@@ -75,20 +50,40 @@ function Profile() {
         <div className='profile-todo bg-white p-2'>
           <h2 className='text-primary'>To Do List</h2>
           <hr />
-          <ul>
-            {todo.map(task => {
+          <table>
+            <thead>
+              <th>Task</th>
+              <th>Deadline</th>
+              <th>Completed</th>
+            </thead>
+
+            {profile.todos.map(todo => {
               return (
-                <li>
-                  <i class='fas fa-check'></i> Task: {task.item} Deadline:{' '}
-                  {task.deadline}
-                </li>
+                <tr>
+                  <td>{todo.task}</td>
+                  <td>
+                    <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
+                  </td>
+                  <td>{todo.completed}</td>
+                </tr>
               );
             })}
-          </ul>
+          </table>
         </div>
       </div>
     </Fragment>
   );
-}
+};
 
-export default Profile;
+Profile.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { getCurrentProfile })(Profile);
