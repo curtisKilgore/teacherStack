@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-awesome-modal';
 import './Modal.css';
+import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profile';
+import PropTypes from 'prop-types';
 
-function Student() {
+const Student = ({
+  getCurrentProfile,
+  auth: { user },
+  profile: { profile, loading }
+}) => {
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
+
+  console.log(profile);
+
   const [student, setStudent] = useState({
     name: 'Bobby Sims III',
     grade: 10,
@@ -176,6 +189,17 @@ function Student() {
       </Modal>
     </tbody>
   );
-}
+};
 
-export default Student;
+Student.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { getCurrentProfile })(Student);

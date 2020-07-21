@@ -20,7 +20,11 @@ router.get('/me', auth, async (req, res) => {
   try {
     const profile = await TeacherProfile.findOne({
       user: req.user.id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('user', ['name', 'email', 'avatar']);
+
+    profile.classes = profile.classes.sort((a, b) =>
+      a.period > b.period ? 1 : -1
+    );
 
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
@@ -134,7 +138,7 @@ router.get('/:user_id', async (req, res) => {
   try {
     const profile = await TeacherProfile.findOne({
       user: req.params.user_id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('user', ['name', 'email', 'avatar']);
     if (!profile) return res.status(400).json({ msg: 'Profile not found.' });
 
     res.json(profile);
@@ -330,5 +334,7 @@ router.put(
     }
   }
 );
+
+// ROUTE TO GET STUDENTS BY CLASS PERIOD
 
 module.exports = router;
