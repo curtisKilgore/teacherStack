@@ -194,8 +194,6 @@ router.put(
       'https://api.mockaroo.com/api/0f76e990?count=30&key=818fe000'
     );
 
-    console.log('students are', students);
-
     let s_count = students.data.length - 1;
     let s_curr_count = 0;
     let s_array = [];

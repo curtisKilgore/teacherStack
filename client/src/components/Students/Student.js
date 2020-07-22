@@ -12,7 +12,7 @@ const Student = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   console.log(profile);
 

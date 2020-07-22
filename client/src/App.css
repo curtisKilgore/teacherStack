@@ -124,6 +124,13 @@ ul {
   background: red;
   color: #fff;
 }
+.btn-success,
+.bg-success,
+.badge-success,
+.alert-success {
+  background: green;
+  color: #fff;
+}
 
 .btn:hover {
   opacity: 0.8;

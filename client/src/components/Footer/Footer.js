@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <foote
+    <footer
       variant='dark'
       className='footer justify-content-center'
       fixed='bottom'
@@ -14,7 +14,7 @@ function Footer() {
           <i className='fas fa-apple-alt'></i>
         </span>
       </div>
-    </foote>
+    </footer>
   );
 }
 

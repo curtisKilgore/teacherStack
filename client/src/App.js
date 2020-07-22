@@ -12,7 +12,10 @@ import GenericForm from './components/Form/Form';
 import Posts from './components/Posts/Posts';
 import Post from './components/Post/Post';
 import PrivateRoute from './components/routing/PrivateRoute';
-import NotFound from './components/pages/NotFound';
+import CreateProfile from './components/Profile-Forms/CreateProfile';
+import AddClass from './components/Profile-Forms/AddClass';
+import EditProfile from './components/Profile-Forms/EditProfile';
+
 import Alert from './components/Layout/Alert';
 // Redux
 import { Provider } from 'react-redux';
@@ -52,8 +55,18 @@ function App() {
               <Route exact path={'/posts'} component={Posts}></Route>
               <Route exact path={'/post'} component={Post}></Route>
               <PrivateRoute exact path={'/profile'} component={Profile} />
+              <PrivateRoute
+                exact
+                path='/create-profile'
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/edit-profile'
+                component={EditProfile}
+              />
+              <PrivateRoute exact path='/add-class' component={AddClass} />
               <Route exact path={'/form'} component={GenericForm}></Route>
-              {/* <Route component={NotFound}></Route> */}
             </Switch>
           </section>
           <Footer />
