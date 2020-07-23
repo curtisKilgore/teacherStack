@@ -167,13 +167,12 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 2rem;
+  padding: 1.2rem 1rem 0.5rem;
   position: fixed;
   z-index: 1;
   width: 100%;
   top: 0;
   border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
 }
 
 .navbar ul {
@@ -202,14 +201,14 @@ ul {
   width: 100%;
   color: #f4eade;
   text-align: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 .landing {
   position: relative;
   background: url('https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
     no-repeat center center/cover;
-  height: 93vh;
+  height: 95vh;
 }
 
 .landing-inner {
@@ -327,14 +326,16 @@ ul {
 .form input[type='text'],
 .form input[type='email'],
 .form input[type='password'],
+.form input[type='number'],
 .form input[type='date'],
 .form select,
 .form textarea {
   display: block;
   width: 100%;
   padding: 0.4rem;
+  color: slategrey;
   font-size: 1.2rem;
-  border: 1px solid #ccc;
+  border: 1px solid #f4eade;
 }
 
 .form input[type='submit'],

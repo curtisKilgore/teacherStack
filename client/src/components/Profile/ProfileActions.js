@@ -7,7 +7,7 @@ export const ProfileActions = () => {
       <Link to='/edit-profile' className='btn btn-coral'>
         <i className='fas fa-user-circle text-primary'></i> Edit Profile
       </Link>
-      <Link to='/add-experience' className='btn btn-coral'>
+      <Link to='/add-todo' className='btn btn-coral'>
         <i className='fas fa-check text-primary'></i> Add ToDo
       </Link>
       <Link to='/add-class' className='btn btn-coral'>

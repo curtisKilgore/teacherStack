@@ -333,6 +333,26 @@ router.put(
   }
 );
 
+// DELETE ToDo
+router.delete('/todos/:todo_id', auth, async (req, res) => {
+  try {
+    const profile = await TeacherProfile.findOne({ user: req.user.id });
+
+    // get remove index
+    const removeIndex = profile.todos
+      .map(item => item.id)
+      .indexOf(req.params.todo_id);
+
+    profile.todos.splice(removeIndex, 1);
+
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // ROUTE TO GET STUDENTS BY CLASS PERIOD
 
 module.exports = router;

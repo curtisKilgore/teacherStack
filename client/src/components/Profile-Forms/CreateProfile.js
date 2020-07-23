@@ -95,7 +95,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
-            className='btn btn-light'
+            className='btn btn-sea'
           >
             Add Social Network Links
           </button>
@@ -161,8 +161,8 @@ const CreateProfile = ({ createProfile, history }) => {
           </Fragment>
         )}
 
-        <input type='submit' className='btn btn-primary my-1' />
-        <Link className='btn btn-light my-1' to='/profile'>
+        <input type='submit' className='btn btn-blue my-1' />
+        <Link className='btn btn-coral my-1' to='/profile'>
           Go Back
         </Link>
       </form>

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addClass } from '../../actions/profile';
@@ -19,10 +19,10 @@ const AddClass = ({ addClass, history }) => {
   return (
     <Fragment>
       <h1 className='large text-primary'>Add A Class Period</h1>
-      <p className='lead'>
+      <h4 className='lead'>
         <i className='fas fa-code-branch'></i> Put a little info about your
         class period.
-      </p>
+      </h4>
       <form
         className='form'
         onSubmit={e => {
@@ -56,15 +56,15 @@ const AddClass = ({ addClass, history }) => {
             name='description'
             cols='30'
             rows='5'
-            placeholder='Job Description'
+            placeholder='Class Description'
             value={description}
             onChange={e => onChange(e)}
           ></textarea>
         </div>
-        <input type='submit' className='btn btn-primary my-1' />
-        <a className='btn btn-light my-1' href='dashboard.html'>
+        <input type='submit' className='btn btn-sea my-1' />
+        <Link className='btn btn-coral my-1' to='/profile'>
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   );

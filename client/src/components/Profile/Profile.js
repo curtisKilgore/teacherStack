@@ -2,12 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
+import { getCurrentProfile, deleteTodo } from '../../actions/profile';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 
 const Profile = ({
   getCurrentProfile,
+  deleteTodo,
   auth: { user },
   profile: { profile, loading }
 }) => {
@@ -47,13 +48,15 @@ const Profile = ({
             </ul>
           </div>
           <div className='profile-todo bg-white p-2'>
-            <h2 className='text-primary'>To Do List</h2>
+            <h2 className='text-primary'>ToDo List</h2>
             <hr />
-            <table>
+            <table className='table'>
               <thead>
-                <th>Task</th>
-                <th>Deadline</th>
-                <th>Completed</th>
+                <tr>
+                  <th>Task</th>
+                  <th>Deadline</th>
+                  <th>Completed</th>
+                </tr>
               </thead>
 
               {profile.todos.map(todo => {
@@ -63,7 +66,14 @@ const Profile = ({
                     <td>
                       <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
                     </td>
-                    <td>{todo.completed}</td>
+                    <td>
+                      <button
+                        className='btn btn-sea'
+                        onClick={() => deleteTodo(todo._id)}
+                      >
+                        Mark as Completed
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -89,6 +99,7 @@ const Profile = ({
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -98,4 +109,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, deleteTodo })(
+  Profile
+);

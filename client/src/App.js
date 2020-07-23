@@ -15,6 +15,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/Profile-Forms/CreateProfile';
 import AddClass from './components/Profile-Forms/AddClass';
 import EditProfile from './components/Profile-Forms/EditProfile';
+import AddToDo from './components/Profile-Forms/AddToDo';
 
 import Alert from './components/Layout/Alert';
 // Redux
@@ -65,6 +66,7 @@ function App() {
                 path='/edit-profile'
                 component={EditProfile}
               />
+              <PrivateRoute exact path='/add-todo' component={AddToDo} />
               <PrivateRoute exact path='/add-class' component={AddClass} />
               <Route exact path={'/form'} component={GenericForm}></Route>
             </Switch>
