@@ -194,8 +194,6 @@ router.put(
       'https://api.mockaroo.com/api/0f76e990?count=30&key=818fe000'
     );
 
-    console.log('students are', students);
-
     let s_count = students.data.length - 1;
     let s_curr_count = 0;
     let s_array = [];
@@ -334,6 +332,26 @@ router.put(
     }
   }
 );
+
+// DELETE ToDo
+router.delete('/todos/:todo_id', auth, async (req, res) => {
+  try {
+    const profile = await TeacherProfile.findOne({ user: req.user.id });
+
+    // get remove index
+    const removeIndex = profile.todos
+      .map(item => item.id)
+      .indexOf(req.params.todo_id);
+
+    profile.todos.splice(removeIndex, 1);
+
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // ROUTE TO GET STUDENTS BY CLASS PERIOD
 

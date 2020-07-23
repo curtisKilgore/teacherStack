@@ -11,7 +11,7 @@ const StudentContainer = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   return (
     <Fragment>
