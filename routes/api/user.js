@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const faker = require('faker');
 
 const User = require('../../models/User');
 const Post = require('../../models/Post');
@@ -45,10 +46,15 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
+      const avatar = faker.image.avatar();
+
+      console.log(avatar);
+
       user = new User({
         name,
         email,
-        password
+        password,
+        avatar
       });
 
       // encrypt the password with bcrypt

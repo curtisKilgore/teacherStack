@@ -1,40 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-awesome-modal';
 import './Modal.css';
-import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
-import PropTypes from 'prop-types';
 
-const Student = ({
-  getCurrentProfile,
-  auth: { user },
-  profile: { profile, loading }
-}) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
-
-  console.log(profile);
-
-  const [student, setStudent] = useState({
-    name: 'Bobby Sims III',
-    grade: 10,
-    guardianname: 'Bobby Sims II',
-    guardianphone: '951-555-5555',
-    englishlearner: false,
-    resourcestudent: false,
-    medical: 'Asthma',
-    teachingstrategies: `When working alone Bobby feels like he needs his headphones to conecntrate. I've made a deal with Bobby that if he works 15 minutes without headphones he can use them.`,
-    interests: `Bobby and I have made connections when talking about the Lakers, specifically how much better they've been this season than last season.`,
-    athlete: false,
-    extracurricular: `Bobby is involved in BSU and our school's ASN program.`,
-    goals: `Bobby wants to go to college, but doesn't know what kind of career he would like to pursue.`
-  });
+function Student({ student }) {
   const [visible, setVisible] = useState(false);
 
   const {
     name,
     grade,
+    avatar,
     guardianname,
     guardianphone,
     englishlearner,
@@ -127,7 +101,7 @@ const Student = ({
           <div className='card-title text-center'>
             <img
               className='round-img'
-              src='https://images-na.ssl-images-amazon.com/images/I/31TKAn1X4yL._SX466_.png'
+              src={avatar}
               alt={name}
               style={{ width: '200px', height: '200px' }}
             />
@@ -189,17 +163,6 @@ const Student = ({
       </Modal>
     </tbody>
   );
-};
+}
 
-Student.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  profile: state.profile
-});
-
-export default connect(mapStateToProps, { getCurrentProfile })(Student);
+export default Student;

@@ -121,8 +121,11 @@ router.post('/', [
 
 router.get('/', async (req, res) => {
   try {
-    const allProfiles = await User.find();
-    res.json(allProfiles);
+    const profiles = await TeacherProfile.find().populate('user', [
+      'name',
+      'avatar'
+    ]);
+    res.json(profiles);
   } catch (err) {
     console.log(err.message);
     res.status(500).json('Server Error');
@@ -354,5 +357,37 @@ router.delete('/todos/:todo_id', auth, async (req, res) => {
 });
 
 // ROUTE TO GET STUDENTS BY CLASS PERIOD
+
+router.get('/classes/:class_id', auth, async (req, res) => {
+  try {
+    const profile = await TeacherProfile.findOne({
+      user: req.user.id
+    }).populate('classes.students', [
+      'name',
+      'grade',
+      'email',
+      'avatar',
+      'gender',
+      'englishlearner',
+      'resourcestudent',
+      'learningstrats',
+      'bio',
+      'goals'
+    ]);
+
+    console.log(profile.classes);
+
+    // get class index
+    const classIndex = profile.classes
+      .map(item => item._id)
+      .indexOf(req.params.class_id);
+
+    const students = profile.classes[classIndex].students;
+    res.json(students);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

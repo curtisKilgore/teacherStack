@@ -1,47 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import { deleteComment } from '../../actions/post';
 
-function CommentItem() {
-  const [comments, useComments] = useState([
-    {
-      text:
-        'I would definitely try and make the sentence frame as vague as possible. You really want to give students something they feel comfortable using, and still allow them to use their own voice.',
-      user: 'Brandon P',
-      avater:
-        'https://images-na.ssl-images-amazon.com/images/I/519AOHTCs5L._AC_.jpg',
-      date: '10/8/2020'
-    },
-    {
-      text: 'Awesome! Thanks Mr. P, I thought that was the right direction!',
-      user: 'Derek Glassick',
-      avater:
-        'https://media-exp1.licdn.com/dms/image/C4E03AQGnOYxJKzBwUw/profile-displayphoto-shrink_200_200/0?e=1598486400&v=beta&t=YsaPebInIxjipk5dWeuBKn3xMzTsa9oNdqSY1JFEzPQ',
-      date: '10/8/2020'
-    }
-  ]);
+const CommentItem = ({
+  postId,
+  comment: { _id, text, name, avatar, user, date },
+  auth,
+  deleteComment
+}) => {
   return (
-    <div>
-      {comments.map(comment => {
-        return (
-          <div className='post bg-white p-q my-1'>
-            <div>
-              <Link to={`/profil/user`}>
-                <img src={comment.avater} alt='user' className='round-img' />
-                <h4>{comment.user}</h4>
-              </Link>
-            </div>
-            <div>
-              <p className='my-1'>{comment.text}</p>
-              <p className='post-date'>Posted on {comment.date}</p>
-              <button className='btn btn-danger' type='button'>
-                <i className='fas fa-times'></i>
-              </button>
-            </div>
-          </div>
-        );
-      })}
+    <div className='post bg-white p-1 my-1'>
+      <div>
+        <Link to={`/profile/${user}`}>
+          <img className='round-img' src={avatar} alt='' />
+          <h4>{name}</h4>
+        </Link>
+      </div>
+      <div>
+        <p className='my-1'>{text}</p>
+        <p className='post-date'>
+          Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+        </p>
+        {!auth.loading && user === auth.user._id && (
+          <button
+            className='btn btn-danger'
+            onClick={e => deleteComment(postId, _id)}
+            type='button'
+          >
+            <i className='fas fa-times'></i>
+          </button>
+        )}
+      </div>
     </div>
   );
-}
+};
 
-export default CommentItem;
+CommentItem.propTypes = {
+  postId: PropTypes.string.isRequired,
+  comment: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { deleteComment })(CommentItem);

@@ -41,7 +41,9 @@ const Profile = ({
                 return (
                   <li key={course._id}>
                     {course.period}. {course.name}{' '}
-                    <button className='btn-coral'>View Class</button>
+                    <Link to={`/students/${course._id}`} className='btn-coral'>
+                      View Class
+                    </Link>
                   </li>
                 );
               })}
@@ -58,25 +60,26 @@ const Profile = ({
                   <th>Completed</th>
                 </tr>
               </thead>
-
-              {profile.todos.map(todo => {
-                return (
-                  <tr key={todo._id}>
-                    <td>{todo.task}</td>
-                    <td>
-                      <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
-                    </td>
-                    <td>
-                      <button
-                        className='btn btn-sea'
-                        onClick={() => deleteTodo(todo._id)}
-                      >
-                        Mark as Completed
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              <tbody>
+                {profile.todos.map(todo => {
+                  return (
+                    <tr key={todo._id}>
+                      <td>{todo.task}</td>
+                      <td>
+                        <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
+                      </td>
+                      <td>
+                        <button
+                          className='btn btn-sea'
+                          onClick={() => deleteTodo(todo._id)}
+                        >
+                          Mark as Completed
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
         </div>

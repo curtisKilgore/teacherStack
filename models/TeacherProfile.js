@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const TeacherProfileSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.ObjectId,
     ref: 'user'
   },
   role: {
@@ -22,7 +22,7 @@ const TeacherProfileSchema = new mongoose.Schema({
       },
       students: [
         {
-          type: mongoose.Schema.Types.ObjectId,
+          type: mongoose.ObjectId,
           ref: 'student'
         }
       ]

@@ -1,41 +1,65 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import { connect } from 'react-redux';
+import { deletePost } from '../../actions/post';
 
-function PostItem() {
-  const [post, setPost] = useState({
-    user: 'Derek Glassick',
-    avatar:
-      'https://media-exp1.licdn.com/dms/image/C4E03AQGnOYxJKzBwUw/profile-displayphoto-shrink_200_200/0?e=1598486400&v=beta&t=YsaPebInIxjipk5dWeuBKn3xMzTsa9oNdqSY1JFEzPQ',
-    title: 'Help with Sentence Frames',
-    text:
-      "Hey Everyone, I was wondering if anyone had any good resources on how to incorporate sentence frames into a lesson. I don't want to just give an answer to a student, but do want to push them in the right direction.",
-    comments: [{ text: 'hey' }, { text: 'hey' }],
-    date: '10/8/2020'
-  });
-
+const PostItem = ({
+  deletePost,
+  auth,
+  post: { _id, text, name, avatar, user, likes, comments, date },
+  showActions
+}) => {
   return (
     <div className='post bg-white p-1 my-1'>
       <div>
-        <Link to={`/profile`}>
-          <img className='round-img' src={post.avatar} alt='user' />
-          <h4>{post.user}</h4>
+        <Link to={`/profile/${user}`}>
+          <img className='round-img' src={avatar} alt='' />
+          <h4>{name}</h4>
         </Link>
       </div>
       <div>
-        <h4>{post.title}</h4>
-        <p className='my-1'>{post.text}</p>
-        <p className='post-date'> Posted on {post.date}</p>
-        <Fragment>
-          <Link to={`/post`} className='btn btn-blue'>
-            Comments{' '}
-            {post.comments.length > 0 && (
-              <span className='comment-count'> {post.comments.length}</span>
+        <p className='my-1'>{text}</p>
+        <p className='post-date'>
+          Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
+        </p>
+        {showActions && (
+          <Fragment>
+            <Link to={`/post/${_id}`} className='btn btn-primary'>
+              Discussion{' '}
+              {comments.length > 0 && (
+                <span className='comment-count'> {comments.length}</span>
+              )}
+            </Link>
+            {!auth.loading && user === auth.user._id && (
+              <button
+                onClick={e => deletePost(_id)}
+                type='button'
+                className='btn btn-danger'
+              >
+                <i className='fas fa-times'></i>
+              </button>
             )}
-          </Link>
-        </Fragment>
+          </Fragment>
+        )}
       </div>
     </div>
   );
-}
+};
 
-export default PostItem;
+PostItem.defaultProps = {
+  showActions: true
+};
+
+PostItem.propTypes = {
+  post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { deletePost })(PostItem);
