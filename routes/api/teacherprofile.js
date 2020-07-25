@@ -119,7 +119,7 @@ router.post('/', [
 //@desc     Get profile by user ID
 //@access   Public
 
-router.get('/user/:user_id', async (req, res) => {
+router.get('/profile/:user_id', async (req, res) => {
   try {
     const profile = await TeacherProfile.findOne({
       user: req.params.user_id

@@ -591,6 +591,9 @@ const StudentContainer = () => {
           <Student key={index} student={student} />
         ))}
       </table>
+      <br />
+      <br />
+      <br />
     </Fragment>
   );
 };

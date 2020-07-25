@@ -26,7 +26,7 @@ const PostItem = ({
         </p>
         {showActions && (
           <Fragment>
-            <Link to={`/post/${_id}`} className='btn btn-primary'>
+            <Link to={`/post/${_id}`} className='btn btn-sea'>
               Discussion{' '}
               {comments.length > 0 && (
                 <span className='comment-count'> {comments.length}</span>
