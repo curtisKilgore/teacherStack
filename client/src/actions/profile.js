@@ -54,13 +54,14 @@ export const getProfiles = () => async dispatch => {
 
 export const getProfileById = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/teacherprofile/user/${userId}`);
+    const res = await axios.get(`/api/teacherprofile/profile/${userId}`);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
+    console.log(err.response.statusText);
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
