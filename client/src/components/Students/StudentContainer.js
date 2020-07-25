@@ -574,7 +574,7 @@ const StudentContainer = () => {
   return (
     <Fragment>
       <div className='large text-primary'>
-        <h1></h1>
+        <h1 className='large'>Mr. Glassick's First Period</h1>
       </div>
       <table className='table'>
         <thead>

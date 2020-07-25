@@ -55,7 +55,8 @@ function App() {
               <Route exact path={'/posts'} component={Post}></Route>
               <Route exact path={'/profiles'} component={Profiles}></Route>
               <PrivateRoute exact path='/post/:id' component={Post} />
-              <PrivateRoute exact path={'/profile'} component={Profile} />
+              <Route exact path={'/profile'} component={Profile} />
+              <Route exact path='/profile/:id' component={Profile} />
               <PrivateRoute
                 exact
                 path='/create-profile'

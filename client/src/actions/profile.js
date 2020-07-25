@@ -50,6 +50,24 @@ export const getProfiles = () => async dispatch => {
   }
 };
 
+//Get profile by id
+
+export const getProfileById = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/teacherprofile/user/${userId}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 //Create or Update profile
 export const createProfile = (
   formData,
@@ -83,6 +101,45 @@ export const createProfile = (
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
+    });
+  }
+};
+
+export const editProfile = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const res = await axios.post('/api/teacherprofile', formData, config);
+    console.log('route getting hit');
+    console.log(res.data);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+
+    history.push('/profile');
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload: {

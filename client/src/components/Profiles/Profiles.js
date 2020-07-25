@@ -17,8 +17,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <Fragment>
           <h1 className='large text-primary'>Teachers</h1>
           <p className='lead'>
-            <i className='fab fa-connectdevelop'></i>Browse and Connect with
-            Developers
+            <i className='fab fa-connectdevelop'></i>Look for teachers that can
+            help you...
           </p>
           <div className='profiles'>
             {profiles.length > 0 ? (

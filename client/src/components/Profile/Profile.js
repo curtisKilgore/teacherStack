@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteTodo } from '../../actions/profile';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import ProfileAbout from './ProfileAbout';
 
 const Profile = ({
   getCurrentProfile,
@@ -21,6 +22,7 @@ const Profile = ({
       {profile !== null ? (
         <div className='profile-grid my-1'>
           <ProfileTop profile={profile} user={user} />
+          <ProfileAbout profile={profile} user={user} />
           <div className='profile-about bg-white p-2'>
             <h2 className='text-primary'>Skills</h2>
             <hr />
