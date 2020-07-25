@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteTodo } from '../../actions/profile';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import ProfileAbout from './ProfileAbout';
 
 const Profile = ({
   getCurrentProfile,
@@ -21,6 +22,7 @@ const Profile = ({
       {profile !== null ? (
         <div className='profile-grid my-1'>
           <ProfileTop profile={profile} user={user} />
+          <ProfileAbout profile={profile} user={user} />
           <div className='profile-about bg-white p-2'>
             <h2 className='text-primary'>Skills</h2>
             <hr />
@@ -41,7 +43,9 @@ const Profile = ({
                 return (
                   <li key={course._id}>
                     {course.period}. {course.name}{' '}
-                    <button className='btn-coral'>View Class</button>
+                    <Link to={`/students/${course._id}`} className='btn-coral'>
+                      View Class
+                    </Link>
                   </li>
                 );
               })}
@@ -58,25 +62,26 @@ const Profile = ({
                   <th>Completed</th>
                 </tr>
               </thead>
-
-              {profile.todos.map(todo => {
-                return (
-                  <tr key={todo._id}>
-                    <td>{todo.task}</td>
-                    <td>
-                      <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
-                    </td>
-                    <td>
-                      <button
-                        className='btn btn-sea'
-                        onClick={() => deleteTodo(todo._id)}
-                      >
-                        Mark as Completed
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              <tbody>
+                {profile.todos.map(todo => {
+                  return (
+                    <tr key={todo._id}>
+                      <td>{todo.task}</td>
+                      <td>
+                        <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
+                      </td>
+                      <td>
+                        <button
+                          className='btn btn-sea'
+                          onClick={() => deleteTodo(todo._id)}
+                        >
+                          Mark as Completed
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
         </div>

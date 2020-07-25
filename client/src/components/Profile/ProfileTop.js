@@ -2,24 +2,16 @@ import React from 'react';
 import { ProfileActions } from './ProfileActions';
 
 function ProfileTop({ profile, user }) {
-  console.log(profile, 'this is profile');
-  console.log(user, 'this is user');
-  const { name, email } = user;
+  const { name, email, avatar } = user;
   const { role, subject, social } = profile;
 
   return (
     <div className='profile-top bg-sea p-2'>
       <ProfileActions />
-      <img
-        src={
-          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-        }
-        alt=''
-        className='round-img my-1 py-2'
-      />
+      <img src={avatar} alt='' className='round-img my-1 py-2' />
       <h1 className='large'>{name}</h1>
       <p className='lead'>
-        Teacher Stack High School, {role},{subject}
+        Teacher Stack High School, {role}, {subject}
       </p>
       <p className='lead'>{email}</p>
       <div className='icons my-1'>

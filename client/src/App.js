@@ -16,6 +16,7 @@ import CreateProfile from './components/Profile-Forms/CreateProfile';
 import AddClass from './components/Profile-Forms/AddClass';
 import EditProfile from './components/Profile-Forms/EditProfile';
 import AddToDo from './components/Profile-Forms/AddToDo';
+import Profiles from './components/Profiles/Profiles';
 
 import Alert from './components/Layout/Alert';
 // Redux
@@ -48,14 +49,14 @@ function App() {
             <Switch>
               <Route exact path={'/login'} component={Login}></Route>
               <Route exact path={'/signup'} component={SignUp}></Route>
-              <Route
-                exact
-                path={'/students'}
-                component={StudentContainer}
-              ></Route>
-              <Route exact path={'/posts'} component={Posts}></Route>
-              <Route exact path={'/post'} component={Post}></Route>
-              <PrivateRoute exact path={'/profile'} component={Profile} />
+
+              <Route exact path='/roster' component={StudentContainer} />
+              <Route exact path={'/forum'} component={Posts}></Route>
+              <Route exact path={'/posts'} component={Post}></Route>
+              <Route exact path={'/profiles'} component={Profiles}></Route>
+              <PrivateRoute exact path='/post/:id' component={Post} />
+              <Route exact path={'/profile'} component={Profile} />
+              <Route exact path='/profile/:id' component={Profile} />
               <PrivateRoute
                 exact
                 path='/create-profile'

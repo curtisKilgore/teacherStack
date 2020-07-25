@@ -115,14 +115,98 @@ router.post('/', [
   }
 ]);
 
+//@route    GET api/profile/user/:user_id
+//@desc     Get profile by user ID
+//@access   Public
+
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const profile = await TeacherProfile.findOne({
+      user: req.params.user_id
+    }).populate('user', ['name', 'avatar']);
+
+    if (!profile) return res.status(400).json({ msg: 'Profile not found.' });
+
+    res.json(profile);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found.' });
+    }
+    res.status(500).json('Server Error');
+  }
+});
+
+//@route    PUT api/user/
+//@desc     Create or update user profile
+//@access   Private
+
+router.put('/', [
+  auth,
+  async (req, res) => {
+    const {
+      room,
+      subject,
+      skills,
+      classes,
+      bio,
+      todos,
+      youtube,
+      twitter,
+      facebook,
+      linkedin,
+      instagram
+    } = req.body;
+
+    console.log(req.body);
+
+    //Build Profile Object
+
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (room) profileFields.room = room;
+    if (subject) profileFields.subject = subject;
+    if (skills) {
+      profileFields.skills = skills.split(',').map(skill => skill.trim());
+    }
+    if (bio) profileFields.bio = bio;
+    if (classes) profileFields.classes = classes;
+    if (todos) profileFields.todos = todos;
+
+    // Build SocialMedia Object
+    profileFields.social = {};
+    if (youtube) profileFields.social.youtube = youtube;
+    if (twitter) profileFields.social.twitter = twitter;
+    if (facebook) profileFields.social.facebook = facebook;
+    if (linkedin) profileFields.social.linkedin = linkedin;
+    if (instagram) profileFields.social.instagram = instagram;
+
+    try {
+      let profile = await TeacherProfile.findOneAndUpdate(
+        { user: req.user._id },
+        { $set: profileFields },
+        { new: true }
+      );
+
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+]);
+
 //@route    GET api/user
 //@desc     Get all profiles
 //@access   Public
 
 router.get('/', async (req, res) => {
   try {
-    const allProfiles = await User.find();
-    res.json(allProfiles);
+    const profiles = await TeacherProfile.find().populate('user', [
+      'name',
+      'avatar'
+    ]);
+    res.json(profiles);
   } catch (err) {
     console.log(err.message);
     res.status(500).json('Server Error');
@@ -354,5 +438,37 @@ router.delete('/todos/:todo_id', auth, async (req, res) => {
 });
 
 // ROUTE TO GET STUDENTS BY CLASS PERIOD
+
+router.get('/classes/:class_id', auth, async (req, res) => {
+  try {
+    const profile = await TeacherProfile.findOne({
+      user: req.user.id
+    }).populate('classes.students', [
+      'name',
+      'grade',
+      'email',
+      'avatar',
+      'gender',
+      'englishlearner',
+      'resourcestudent',
+      'learningstrats',
+      'bio',
+      'goals'
+    ]);
+
+    console.log(profile.classes);
+
+    // get class index
+    const classIndex = profile.classes
+      .map(item => item._id)
+      .indexOf(req.params.class_id);
+
+    const students = profile.classes[classIndex].students;
+    res.json(students);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;
