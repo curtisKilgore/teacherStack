@@ -11,7 +11,7 @@ const ProfileAbout = ({
     <div className='profile-about bg-white p-2'>
       {bio && (
         <Fragment>
-          <h2 className='text-primary'>{name.trim().split(' ')[0]}'s Bio</h2>
+          <h2 className='text-primary'>{name}'s Bio</h2>
           <hr />
           <p>{bio}</p>
           <div className='line'></div>

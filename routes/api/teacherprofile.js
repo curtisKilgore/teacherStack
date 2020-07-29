@@ -90,15 +90,14 @@ router.post('/', [
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
-      let profile = await TeacherProfile.findOne({ user: req.user._id });
+      let profile = await TeacherProfile.findOne({ user: req.user.id });
 
       if (profile) {
         profile = await TeacherProfile.findOneAndUpdate(
-          { user: req.user._id },
+          { user: req.user.id },
           { $set: profileFields },
           { new: true }
         );
-        console.log(profile);
 
         return res.json(profile);
       }
@@ -115,7 +114,7 @@ router.post('/', [
   }
 ]);
 
-//@route    GET api/profile/user/:user_id
+//@route    GET api/teacherprofile/profile/:user_id
 //@desc     Get profile by user ID
 //@access   Public
 
@@ -123,7 +122,7 @@ router.get('/profile/:user_id', async (req, res) => {
   try {
     const profile = await TeacherProfile.findOne({
       user: req.params.user_id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('user', ['name', 'email', 'avatar']);
 
     if (!profile) return res.status(400).json({ msg: 'Profile not found.' });
 
@@ -183,7 +182,7 @@ router.put('/', [
 
     try {
       let profile = await TeacherProfile.findOneAndUpdate(
-        { user: req.user._id },
+        { user: req.user.id },
         { $set: profileFields },
         { new: true }
       );
