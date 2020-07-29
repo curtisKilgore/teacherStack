@@ -39,42 +39,45 @@ function Student({ student }) {
         <td className='chart'>
           {athlete === false ? (
             <i
-              className='fas fa-basketball-ball'
+              className='fas fa-basketball-ball fa-2x'
               style={{ color: 'lightgrey' }}
             ></i>
           ) : (
             <i
-              className='fas fa-basketball-ball'
+              className='fas fa-basketball-ball fa-2x'
               style={{ color: '#FA8D62' }}
             ></i>
           )}
         </td>
         <td className='chart'>
           {englishlearner === false ? (
-            <i className='fas fa-book' style={{ color: 'lightgrey' }}></i>
+            <i className='fas fa-book fa-2x' style={{ color: 'lightgrey' }}></i>
           ) : (
-            <i className='fas fa-book' style={{ color: '#FA8D62' }}></i>
+            <i className='fas fa-book fa-2x' style={{ color: '#FA8D62' }}></i>
           )}
         </td>
         <td className='chart'>
           {resourcestudent === false ? (
             <i
-              className='fas fa-pencil-ruler'
+              className='fas fa-pencil-ruler fa-2x'
               style={{ color: 'lightgrey' }}
             ></i>
           ) : (
-            <i className='fas fa-pencil-ruler' style={{ color: '#FA8D62' }}></i>
+            <i
+              className='fas fa-pencil-ruler fa-2x'
+              style={{ color: '#FA8D62' }}
+            ></i>
           )}
         </td>
         <td className='chart'>
           {medical === null ? (
             <i
-              className='fas fa-briefcase-medical'
+              className='fas fa-briefcase-medical fa-2x'
               style={{ color: 'lightgrey' }}
             ></i>
           ) : (
             <i
-              className='fas fa-briefcase-medical'
+              className='fas fa-briefcase-medical fa-2x'
               style={{ color: '#FA8D62' }}
             ></i>
           )}
@@ -97,7 +100,7 @@ function Student({ student }) {
         effect='fadeInUp'
         onClickAway={() => closeModal()}
       >
-        <div className='card' style={{ width: '750px', height: '750px' }}>
+        <div className='card' style={{ width: '700px', height: '800px' }}>
           <div className='card-title text-center'>
             <img
               className='round-img'
@@ -105,59 +108,92 @@ function Student({ student }) {
               alt={name}
               style={{ width: '200px', height: '200px' }}
             />
-            <h3 className='card-title text-center bg-sea'>{name}</h3>
+            <h1 className='card-title text-center bg-sea'>{name}</h1>
           </div>
 
           <div className='card-body text-left'>
-            <p className='card-text'>Guardian Name: {guardianname}</p>
-            <p className='card-text'>Guardian Phone: {guardianphone}</p>
-            <p className='card-text'>
-              English Learner:{' '}
-              {englishlearner === false ? (
-                <i className='fas fa-book' style={{ color: 'lightgrey' }}></i>
-              ) : (
-                <i className='fas fa-book' style={{ color: 'blue' }}></i>
-              )}
-            </p>
-            <p className='card-text'>
-              Resource Student:{' '}
-              {resourcestudent === false ? (
-                <i
-                  className='fas fa-pencil-ruler'
-                  style={{ color: 'lightgrey' }}
-                ></i>
-              ) : (
-                <i
-                  className='fas fa-pencil-ruler'
-                  style={{ color: 'purple' }}
-                ></i>
-              )}
-            </p>
-            <p className='card-text'>
-              Medical: {name} suffers from {medical}.
-            </p>
-            <p className='card-text'>
-              Teaching Strategies: {teachingstrategies}
-            </p>
-            <p className='card-text'>Interests: {interests}</p>
-            <p className='card-text'>
-              Athlete:{' '}
-              {athlete === false ? (
-                <i
-                  className='fas fa-basketball-ball'
-                  style={{ color: 'lightgrey' }}
-                ></i>
-              ) : (
-                <i
-                  className='fas fa-basketball-ball'
-                  style={{ color: 'green' }}
-                ></i>
-              )}
-            </p>
-            <p className='card-text'>
-              Extracurricular Activities: {extracurricular}
-            </p>
-            <p className='card-text'>Goals: {goals}</p>
+            <div className='row'>
+              <div className='col-lg-4'>
+                <h3 className='card-text'>Guardian Name:</h3>
+                <p className='card-text'> {guardianname}</p>
+              </div>
+              <div className='col-lg-4'>
+                <h3 className='card-text'>Guardian Phone:</h3>
+                <p className='card-text'> {guardianphone}</p>
+              </div>
+              <div className='col-lg-4'>
+                <h3 className='card-text'>English Learner:</h3>
+                <p className='card-text'>
+                  {englishlearner === false ? (
+                    <i
+                      className='fas fa-book fa-3x'
+                      style={{ color: 'lightgrey' }}
+                    ></i>
+                  ) : (
+                    <i
+                      className='fas fa-book fa-3x'
+                      style={{ color: 'blue' }}
+                    ></i>
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className='row py-4'>
+              <div className='col-lg-4'>
+                <h3>Resource Student:</h3>
+                <p className='card-text'>
+                  {resourcestudent === false ? (
+                    <i
+                      className='fas fa-pencil-ruler fa-3x'
+                      style={{ color: 'lightgrey' }}
+                    ></i>
+                  ) : (
+                    <i
+                      className='fas fa-pencil-ruler fa-3x'
+                      style={{ color: 'purple' }}
+                    ></i>
+                  )}
+                </p>
+              </div>
+              <div className='col-lg-4'>
+                <h3 className='card-text'>Medical</h3>
+                {!medical ? (
+                  <p className='card-text'>
+                    Student does not have any medical conditions.
+                  </p>
+                ) : (
+                  <p className='card-text'>Student has {medical}.</p>
+                )}
+              </div>
+              <div className='col-lg-4'>
+                <h3>Teaching Strats:</h3>
+                <p className='card-text'>{teachingstrategies}</p>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-lg-4'>
+                <h3>Interests:</h3>
+                <p className='card-text'>{interests}</p>
+              </div>
+              <div className='col-lg-4'>
+                <h3>Athlete:</h3>
+                {athlete === false ? (
+                  <i
+                    className='fas fa-basketball-ball fa-3x'
+                    style={{ color: 'lightgrey' }}
+                  ></i>
+                ) : (
+                  <i
+                    className='fas fa-basketball-ball fa-3x'
+                    style={{ color: 'green' }}
+                  ></i>
+                )}
+              </div>
+              <div className='col-lg-4'>
+                <h3>Goals:</h3>
+                <p className='card-text'>{goals}</p>
+              </div>
+            </div>
           </div>
         </div>
       </Modal>
