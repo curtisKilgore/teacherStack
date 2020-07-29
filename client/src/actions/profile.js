@@ -122,6 +122,7 @@ export const addClass = (formData, history) => async dispatch => {
         'Content-Type': 'application/json'
       }
     };
+    console.log(formData);
 
     const res = await axios.put(
       '/api/teacherprofile/classes',
@@ -138,15 +139,7 @@ export const addClass = (formData, history) => async dispatch => {
 
     history.push('/profile');
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
+    console.log(err);
   }
 };
 

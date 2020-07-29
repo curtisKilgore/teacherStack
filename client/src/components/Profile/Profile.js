@@ -38,18 +38,32 @@ const Profile = ({
           <div className='profile-schedule bg-white p-2'>
             <h2 className='text-primary'>Class Schedule</h2>
             <hr />
-            <ul>
-              {profile.classes.map(course => {
-                return (
-                  <li key={course._id}>
-                    {course.period}. {course.name}{' '}
-                    <Link to={`/roster`} className='btn-coral'>
-                      View Class
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>Period</th>
+                  <th>Subject</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {profile.classes.map(course => {
+                  return (
+                    <tr key={course._id}>
+                      <td>{course.period}</td>
+                      <td>{course.name}</td>
+                      <td>{course.description}</td>
+                      <td>
+                        <Link to={`/roster`} className='btn-coral'>
+                          View Class
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
           <div className='profile-todo bg-white p-2'>
             <h2 className='text-primary'>ToDo List</h2>
@@ -65,7 +79,7 @@ const Profile = ({
               {profile.todos.map(todo => {
                 return (
                   <tr key={todo._id}>
-                    <td>{todo.task}</td>
+                    <td className='periodNum'>{todo.task}</td>
                     <td>
                       <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
                     </td>

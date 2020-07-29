@@ -16,7 +16,7 @@ ul {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 75%;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
@@ -160,6 +160,14 @@ ul {
 }
 .text-sea {
   color: #2f496e;
+}
+
+td {
+  padding: 5px;
+}
+
+.periodNum {
+  text-align: center;
 }
 
 /* Navbar */
