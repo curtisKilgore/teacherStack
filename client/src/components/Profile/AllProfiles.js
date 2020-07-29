@@ -2,27 +2,33 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileTop from './ProfileTop';
 import { connect } from 'react-redux';
-import { getCurrentProfile, deleteTodo } from '../../actions/profile';
+import {
+  getProfileById,
+  getCurrentProfile,
+  deleteTodo
+} from '../../actions/profile';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import ProfileAbout from './ProfileAbout';
 
-const Profile = ({
+const AllProfiles = ({
+  match,
+  getProfileById,
   getCurrentProfile,
   deleteTodo,
   auth: { user },
   profile: { profile, loading }
 }) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
 
   return (
     <Fragment>
       {profile !== null ? (
         <div className='profile-grid my-1'>
-          <ProfileTop profile={profile} user={user} />
-          <ProfileAbout profile={profile} user={user} />
+          <ProfileTop profile={profile} />
+          <ProfileAbout profile={profile} />
           <div className='profile-about bg-white p-2'>
             <h2 className='text-primary'>Skills</h2>
             <hr />
@@ -54,33 +60,35 @@ const Profile = ({
           <div className='profile-todo bg-white p-2'>
             <h2 className='text-primary'>ToDo List</h2>
             <hr />
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Deadline</th>
-                <th>Completed</th>
-              </tr>
-            </thead>
-            <tbody>
-              {profile.todos.map(todo => {
-                return (
-                  <tr key={todo._id}>
-                    <td>{todo.task}</td>
-                    <td>
-                      <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
-                    </td>
-                    <td>
-                      <button
-                        className='btn btn-sea'
-                        onClick={() => deleteTodo(todo._id)}
-                      >
-                        Mark as Completed
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Deadline</th>
+                  <th>Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {profile.todos.map(todo => {
+                  return (
+                    <tr key={todo._id}>
+                      <td>{todo.task}</td>
+                      <td>
+                        <Moment format='MM/DD/YYYY'>{todo.deadline}</Moment>
+                      </td>
+                      <td>
+                        <button
+                          className='btn btn-sea'
+                          onClick={() => deleteTodo(todo._id)}
+                        >
+                          Mark as Completed
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
           <br />
           <br />
@@ -103,7 +111,8 @@ const Profile = ({
   );
 };
 
-Profile.propTypes = {
+AllProfiles.propTypes = {
+  getProfileById: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -115,6 +124,8 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteTodo })(
-  Profile
-);
+export default connect(mapStateToProps, {
+  getProfileById,
+  getCurrentProfile,
+  deleteTodo
+})(AllProfiles);

@@ -17,6 +17,7 @@ import AddClass from './components/Profile-Forms/AddClass';
 import EditProfile from './components/Profile-Forms/EditProfile';
 import AddToDo from './components/Profile-Forms/AddToDo';
 import Profiles from './components/Profiles/Profiles';
+import AllProfiles from './components/Profile/AllProfiles';
 
 import Alert from './components/Layout/Alert';
 // Redux
@@ -56,7 +57,7 @@ function App() {
               <Route exact path={'/profiles'} component={Profiles}></Route>
               <PrivateRoute exact path='/post/:id' component={Post} />
               <Route exact path={'/profile'} component={Profile} />
-              <Route exact path='/profile/:id' component={Profile} />
+              <Route exact path='/profile/:id' component={AllProfiles} />
               <PrivateRoute
                 exact
                 path='/create-profile'

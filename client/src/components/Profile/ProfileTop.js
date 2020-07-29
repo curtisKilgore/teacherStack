@@ -1,10 +1,14 @@
 import React from 'react';
 import { ProfileActions } from './ProfileActions';
 
-function ProfileTop({ profile, user }) {
-  const { name, email, avatar } = user;
-  const { role, subject, social } = profile;
-
+function ProfileTop({
+  profile: {
+    role,
+    subject,
+    social,
+    user: { name, email, avatar }
+  }
+}) {
   return (
     <div className='profile-top bg-sea p-2'>
       <ProfileActions />

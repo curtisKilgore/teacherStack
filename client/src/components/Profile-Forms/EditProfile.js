@@ -2,11 +2,11 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editProfile, getCurrentProfile } from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 const EditProfile = ({
   profile: { profile, loading },
-  editProfile,
+  createProfile,
   getCurrentProfile,
   history
 }) => {
@@ -50,14 +50,14 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-  }, [loading, getCurrentProfile]);
+  }, [loading, getCurrentProfile, profile]);
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    editProfile(formData, history, true);
+    createProfile(formData, history, true);
   };
 
   return (
@@ -196,7 +196,7 @@ const EditProfile = ({
 };
 
 EditProfile.propTypes = {
-  editProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -205,6 +205,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { editProfile, getCurrentProfile })(
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
   withRouter(EditProfile)
 );
